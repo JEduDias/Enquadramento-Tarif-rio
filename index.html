@@ -27,11 +27,12 @@
       padding: 15px 30px;
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-start;
+      gap: 15px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.15);
     }
-    header img { height: 45px; width: auto; object-fit: contain; }
-    header h1 { font-size: 1.4rem; font-weight: bold; }
+    header img { height: 40px; width: auto; object-fit: contain; }
+    header h1 { font-size: 1.3rem; font-weight: bold; }
     .container { max-width: 1250px; margin: 25px auto; padding: 0 15px; }
     .card {
       background: var(--card-bg);
@@ -256,13 +257,8 @@
 <body>
 
 <header>
-  <div>
-    <h1>Simulador de Enquadramento Tarifário</h1>
-  </div>
-  <div>
-    <!-- Tenta buscar o logo.png na pasta local. Se falhar, tenta ./logo.png sem ocultar dinamicamente -->
-    <img src="logo.png" alt="Copel" id="header-logo-img">
-  </div>
+  <img src="logo.png" alt="Copel" id="header-logo-img">
+  <h1>Simulador de Enquadramento Tarifário</h1>
 </header>
 
 <div class="container">
