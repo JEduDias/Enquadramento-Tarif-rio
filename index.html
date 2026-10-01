@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Simulador de Enquadramento Tarifário - Copel</title>
+
+  <!-- ÍCONE DA ABA E BARRA DE FAVORITOS (SVG EMBUTIDO - RAIO LARANJA) -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23FF6B00'><path d='M11 15H6l7-14v8h5l-7 14v-8z'/></svg>">
+
   <style>
     :root {
       --copel-orange: #FF6B00;
@@ -347,7 +351,7 @@
     </div>
 
     <div class="alert-demanda" id="alerta-demanda-minima">
-      <strong>Atenção (Regra de Demanda Mínima):</strong> A demanda calculada (<span id="val-demanda-real">0</span> kW) ficou abaixo de <strong>30 kW</strong>, que é o mínimo regulamentado para contratação no Grupo A (Copel). O faturamento mínimo de 30 kW foi aplicado para a simulação.
+      <strong>Atenção (Regra de Demanda Mínima):</strong> A demanda calculada (<span id="val-demanda-real">0</span> kW) ficou abaixo de <strong>30 kW</strong>, que é o mínimo regulamentado para contratação no Grupo A (Copel). O faturamento mínimo de 30 kW foi applied para a simulação.
     </div>
   </div>
 
@@ -461,7 +465,7 @@
             Desconto obtido com negociações (%):
           </label>
           <input type="number" id="descontoAclInput" value="15" min="0" max="100" step="1" style="width: 100px; font-weight: bold; color: #1E4620; font-size: 1rem; text-align: center;" oninput="calcularSimulacao()">
-          <small style="font-size: 0.75rem; color: #2D6A31;">Desconto estimado aplicado sobre o montante apurado no Grupo A</small>
+          <small style="font-size: 0.75rem; color: #2D6A31;">Desconto estimado applied sobre o montante apurado no Grupo A</small>
         </div>
       </div>
     </div>
