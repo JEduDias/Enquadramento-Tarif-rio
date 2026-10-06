@@ -4,10 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Simulador de Enquadramento Tarifário - Copel</title>
-
-  <!-- ÍCONE DA ABA E BARRA DE FAVORITOS (SVG EMBUTIDO - RAIO LARANJA) -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23FF6B00'><path d='M11 15H6l7-14v8h5l-7 14v-8z'/></svg>">
-
   <style>
     :root {
       --copel-orange: #FF6B00;
@@ -37,7 +33,7 @@
     }
     header img { height: 40px; width: auto; object-fit: contain; }
     header h1 { font-size: 1.3rem; font-weight: bold; }
-    .container { max-width: 1250px; margin: 25px auto; padding: 0 15px; }
+    .container { max-width: 1300px; margin: 25px auto; padding: 0 15px; }
     .card {
       background: var(--card-bg);
       border-radius: 8px;
@@ -68,22 +64,30 @@
     }
     .table-responsive { overflow-x: auto; }
     table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
-    th, td { border: 1px solid var(--border); padding: 5px; text-align: center; }
+    th, td { border: 1px solid var(--border); padding: 4px 2px; text-align: center; }
     th { background-color: #F1F3F5; font-weight: bold; }
     th.th-dia { background-color: #E2E8F0; }
     th.sub-fp { background-color: #E8F5E9; color: #2D6A31; }
     th.sub-p { background-color: #FFE6D5; color: #C44D00; }
+    
+    /* Ajustes nos inputs para garantir exibição de 2 dígitos sem cortar */
     input[type="text"], input[type="number"], select {
       width: 100%;
-      padding: 4px;
+      padding: 5px 2px;
       border: 1px solid #CCC;
       border-radius: 3px;
       text-align: center;
       font-size: 0.85rem;
     }
+    input.input-hora, input.qtd {
+      min-width: 48px;
+      font-weight: 600;
+    }
+    
     .pot-container { display: flex; gap: 2px; }
-    .pot-container input { width: 65%; }
-    .pot-container select { width: 35%; font-size: 0.75rem; padding: 0; }
+    .pot-container input { width: 60%; }
+    .pot-container select { width: 40%; font-size: 0.75rem; padding: 0; }
+    
     .btn {
       background-color: var(--copel-orange);
       color: white;
@@ -95,8 +99,12 @@
       font-size: 0.9rem;
     }
     .btn:hover { background-color: var(--copel-orange-dark); }
-    .btn-sm { padding: 4px 10px; font-size: 0.8rem; }
-    .btn-danger { background-color: #DC3545; padding: 4px 8px; }
+    .btn-sm { padding: 4px 8px; font-size: 0.78rem; }
+    .btn-secondary { background-color: #64748B; }
+    .btn-secondary:hover { background-color: #475569; }
+    .btn-repeat { background-color: #0284C7; color: white; border: none; padding: 3px 6px; font-size: 0.72rem; border-radius: 3px; cursor: pointer; font-weight: bold; }
+    .btn-repeat:hover { background-color: #0369A1; }
+    .btn-danger { background-color: #DC3545; padding: 4px 8px; border: none; color: white; border-radius: 3px; cursor: pointer; font-weight: bold; }
     .btn-danger:hover { background-color: #BD2130; }
 
     /* Painel de Cálculo Prévio Editável de kW */
@@ -284,8 +292,8 @@
       <table id="tabela-cargas">
         <thead>
           <tr>
-            <th rowspan="2" style="width: 180px;">Equipamento / Carga</th>
-            <th rowspan="2" width="40">Qtd</th>
+            <th rowspan="2" style="width: 170px;">Equipamento / Carga</th>
+            <th rowspan="2" width="48">Qtd</th>
             <th rowspan="2" width="115">Potência Unit.</th>
             <th colspan="2" class="th-dia">SEG</th>
             <th colspan="2" class="th-dia">TER</th>
@@ -293,21 +301,21 @@
             <th colspan="2" class="th-dia">QUI</th>
             <th colspan="2" class="th-dia">SEX</th>
             <th colspan="2">Fim de Semana</th>
-            <th rowspan="2" width="35">Ação</th>
+            <th rowspan="2" width="60">Ação</th>
           </tr>
           <tr>
             <!-- SEG -->
-            <th class="sub-fp" width="54">FP</th><th class="sub-p" width="54">P</th>
+            <th class="sub-fp" width="50">FP</th><th class="sub-p" width="50">P</th>
             <!-- TER -->
-            <th class="sub-fp" width="54">FP</th><th class="sub-p" width="54">P</th>
+            <th class="sub-fp" width="50">FP</th><th class="sub-p" width="50">P</th>
             <!-- QUA -->
-            <th class="sub-fp" width="54">FP</th><th class="sub-p" width="54">P</th>
+            <th class="sub-fp" width="50">FP</th><th class="sub-p" width="50">P</th>
             <!-- QUI -->
-            <th class="sub-fp" width="54">FP</th><th class="sub-p" width="54">P</th>
+            <th class="sub-fp" width="50">FP</th><th class="sub-p" width="50">P</th>
             <!-- SEX -->
-            <th class="sub-fp" width="54">FP</th><th class="sub-p" width="54">P</th>
+            <th class="sub-fp" width="50">FP</th><th class="sub-p" width="50">P</th>
             <!-- FIM DE SEMANA -->
-            <th width="54">Sáb</th><th width="54">Dom</th>
+            <th width="50">Sáb</th><th width="50">Dom</th>
           </tr>
         </thead>
         <tbody>
@@ -316,8 +324,9 @@
       </table>
     </div>
 
-    <div style="margin-top: 15px;">
+    <div style="margin-top: 15px; display: flex; gap: 10px;">
       <button class="btn" onclick="adicionarLinha()">+ Adicionar Carga</button>
+      <button class="btn btn-secondary" onclick="limparTudo()">🧹 Limpar Dados</button>
     </div>
 
     <!-- Campos de Cálculo Prévio Editáveis para kW (Esquerda: Fora de Ponta | Direita: Ponta) -->
@@ -465,7 +474,7 @@
             Desconto obtido com negociações (%):
           </label>
           <input type="number" id="descontoAclInput" value="15" min="0" max="100" step="1" style="width: 100px; font-weight: bold; color: #1E4620; font-size: 1rem; text-align: center;" oninput="calcularSimulacao()">
-          <small style="font-size: 0.75rem; color: #2D6A31;">Desconto estimado applied sobre o montante apurado no Grupo A</small>
+          <small style="font-size: 0.75rem; color: #2D6A31;">Desconto estimado aplicado sobre o montante apurado no Grupo A</small>
         </div>
       </div>
     </div>
@@ -532,9 +541,30 @@
       <td style="background-color: #FFF0E6;"><input type="number" class="pSex input-hora" value="${pSex}" min="0" max="3" step="0.5" oninput="validarHPonta(this); atualizarCalculos();"></td>
       <td><input type="number" class="hSabado input-hora" value="${hSabado}" min="0" max="24" step="0.5" oninput="validarHFimSemana(this); atualizarCalculos();"></td>
       <td><input type="number" class="hDomingo input-hora" value="${hDomingo}" min="0" max="24" step="0.5" oninput="validarHFimSemana(this); atualizarCalculos();"></td>
-      <td><button class="btn btn-danger" onclick="removerLinha(this)">X</button></td>
+      <td style="display: flex; gap: 2px; justify-content: center; align-items: center;">
+        <button class="btn-repeat" title="Repetir horários de SEG para TER, QUA, QUI e SEX" onclick="repetirHorasSegunda(this)">🔄</button>
+        <button class="btn-danger" onclick="removerLinha(this)">X</button>
+      </td>
     `;
     tbody.appendChild(tr);
+    atualizarCalculos();
+  }
+
+  /* Função para replicar horários da Segunda-Feira para Terça até Sexta */
+  function repetirHorasSegunda(btn) {
+    const tr = btn.closest('tr');
+    const fpSeg = tr.querySelector('.fpSeg').value;
+    const pSeg = tr.querySelector('.pSeg').value;
+
+    tr.querySelector('.fpTer').value = fpSeg;
+    tr.querySelector('.pTer').value = pSeg;
+    tr.querySelector('.fpQua').value = fpSeg;
+    tr.querySelector('.pQua').value = pSeg;
+    tr.querySelector('.fpQui').value = fpSeg;
+    tr.querySelector('.pQui').value = pSeg;
+    tr.querySelector('.fpSex').value = fpSeg;
+    tr.querySelector('.pSex').value = pSeg;
+
     atualizarCalculos();
   }
 
@@ -566,6 +596,26 @@
   function removerLinha(btn) {
     btn.closest('tr').remove();
     atualizarCalculos();
+  }
+
+  /* Função para limpar todas as informações cadastradas */
+  function limparTudo() {
+    if (confirm("Deseja realmente limpar todas as informações preenchidas?")) {
+      const tbody = document.querySelector('#tabela-cargas tbody');
+      tbody.innerHTML = '';
+      
+      kwEditadoManualmente = false;
+      demandaEditadaManualmente = false;
+      
+      document.getElementById('kwForaPontaInput').value = 0;
+      document.getElementById('kwPontaInput').value = 0;
+      document.getElementById('demandaContratadaInput').value = 30;
+      document.getElementById('painel-resultados').style.display = 'none';
+
+      adicionarLinha("Motores da Produção", 0, 0, "CV", 0,0, 0,0, 0,0, 0,0, 0,0, 0, 0);
+      adicionarLinha("Iluminação", 0, 0, "kW", 0,0, 0,0, 0,0, 0,0, 0,0, 0, 0);
+      atualizarCalculos();
+    }
   }
 
   function marcarKwEditadoManualmente() {
